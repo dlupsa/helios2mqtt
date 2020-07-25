@@ -117,6 +117,37 @@ attr helios autoSubscribeReadings helios/status/+
 attr helios subscribeReading_connected helios/connected
 ```
 
+## systemctl configuration
+
+### Create a systemctl configuration file for helios2mqtt
+sudo nano /etc/systemd/system/zigbee2mqtt.service
+
+### Add the following to this file:
+```
+[Unit]
+Description=helios2mqtt
+After=network.target
+
+[Service]
+ExecStart=node index.js
+WorkingDirectory=/usr/local/lib/node_modules/helios2mqtt
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+### Start helios2mqtt
+sudo systemctl start helios2mqtt
+
+### Show status
+systemctl status helios2mqtt.service
+
+### Start automatically on boot
+sudo systemctl enable helios2mqtt.service
+
 ## License
 
 MIT © [Markus Reschka](https://github.com/mreschka)

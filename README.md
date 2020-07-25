@@ -120,7 +120,7 @@ attr helios subscribeReading_connected helios/connected
 ## systemctl configuration
 
 ### Create a systemctl configuration file for helios2mqtt
-sudo nano /etc/systemd/system/zigbee2mqtt.service
+sudo nano /etc/systemd/system/helios2mqtt.service
 
 ### Add the following to this file:
 ```
@@ -129,6 +129,7 @@ Description=helios2mqtt
 After=network.target
 
 [Service]
+ExecStartPre=/bin/sleep 60
 ExecStart=node index.js
 WorkingDirectory=/usr/local/lib/node_modules/helios2mqtt
 StandardOutput=inherit
